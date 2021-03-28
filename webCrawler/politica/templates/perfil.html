@@ -1,0 +1,184 @@
+{% extends 'padrao.html'%}{% block title %} Perfil {{politicos.namefantasy}} {% endblock %} {% block body %}
+
+<div class="text-center">
+    <hr>
+    <h1 class="text-uppercase">{{politicos.name}} - {{politicos.partido}}</h1>
+    <hr>
+    <h3>Dados referentes à 2020</h3>
+</div>
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between">
+        <div class="grafico">
+            <canvas class="line-chart"></canvas>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Profissão</th>
+                <td>{{bibliografia.profession}}</td>
+            </tr>
+            <tr>
+                <th>Escolaridade</th>
+                <td>{{bibliografia.schooling}}</td>
+            </tr>
+            <tr hidden>
+                <th>Presenças totais</th>
+                <td id="presencas">{{listaPresenca.presencas}}</td>
+            </tr>
+            <tr hidden>
+                <th>Ausências justificadas</th>
+                <td id="ausenciasJust">{{listaPresenca.ausenciasJustificadas}}</td>
+            </tr>
+            <tr hidden>
+                <th>Ausências não justificadas</th>
+                <td id="ausenciasNaoJust">{{listaPresenca.ausenciasNaoJustificadas}}</td>
+            </tr>
+            <tr>
+                <th>Gasto total da cota parlamentar</th>
+                {% if gastos is not None %}
+                <td>{{gastos.gastos_total}}</td>
+                {% else %}
+                <td>Sem Registro</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Total de votos nominais</th>
+                <td>{{votosNominais.votos_nominais}}</td>
+            </tr>
+            <tr>
+                <th>Sessões</th>
+                <td>{{listaPresenca.totalSessoes}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Lista de maiores emendas aprovadas
+                    </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse hide" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table table-bordered table-striped table-hover" id="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">1º Emenda</th>
+                            <th scope="col">2º Emenda</th>
+                            <th scope="col">3º Emenda</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <tr>
+                            <th scope="row">Título da emenda</th>
+                            <td>{{emendasAprovadas.emenda_maior}}</td>
+                            <td>{{emendasAprovadas.emenda_media}}</td>
+                            <td>{{emendasAprovadas.emenda_menor}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Valor autorizado
+                                <a class="interrogacao" data-bs-toggle="popover" title="Valor Autorizado" data-bs-content="Com a emenda aprovada pelo Congresso Nacional, ela passa a integrar a Lei Orçamentária Anual">?</a>
+                            </th>
+                            <td>{{emendasAprovadas.autorizado_maior}}</td>
+                            <td>{{emendasAprovadas.autorizado_media}}</td>
+                            <td>{{emendasAprovadas.autorizado_menor}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Valor empenhado
+                                <a class="interrogacao" data-bs-toggle="popover" title="Valor Empenhado" data-bs-content="Quantia reservada pelo Poder Executivo para o gasto da emenda">?</a>
+                            </th>
+                            <td>{{emendasAprovadas.empenhado_maior}}</td>
+                            <td>{{emendasAprovadas.empenhado_media}}</td>
+                            <td>{{emendasAprovadas.empenhado_menor}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Valor pago
+                                <a class="interrogacao" data-bs-toggle="popover" title="Valor Pago" data-bs-content="Quantia transferida para o Estado ou Municipio proposto pela emenda">?</a>
+                            </th>
+                            <td>{{emendasAprovadas.pago_maior}}</td>
+                            <td>{{emendasAprovadas.pago_media}}</td>
+                            <td>{{emendasAprovadas.pago_menor}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center sr">
+
+    <a href="{{politicos.url}}" target="_blank" type="button" class="btn btn-success">
+        Ver perfil na Câmara dos Deputados
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-box-arrow-in-up-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z">
+            </path>
+            <path fill-rule="evenodd"
+                d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z">
+            </path>
+        </svg>
+    </a>
+
+    <a href="{% url 'listaDosDeputados' %}" type="button" class="btn btn-secondary">
+        Voltar
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z">
+            </path>
+            <path fill-rule="evenodd"
+                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z">
+            </path>
+        </svg>
+    </a>
+
+</div>
+
+
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+
+<script>
+    var ctx = document.getElementsByClassName('line-chart');
+    var presencas = document.getElementById('presencas').textContent
+    var ausenciasJust = document.getElementById('ausenciasJust').textContent
+    var ausenciasNaoJust = document.getElementById('ausenciasNaoJust').textContent
+    console.log(presencas)
+    var chartGraph = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Presenças', 'Ausências justificadas', 'Ausências não justificadas'],
+            datasets: [{
+                data: [presencas, ausenciasJust, ausenciasNaoJust],
+                backgroundColor: [
+                    '#198754',
+                    'yellow',
+                    'gray'
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Presenças em plenário',
+                fontSize: 20
+            }
+        }
+    })
+</script>
+{% endblock %}

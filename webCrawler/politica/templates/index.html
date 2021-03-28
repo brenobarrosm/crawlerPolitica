@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem Vindo!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+        
+        h1,
+        h3 {
+            font-family: 'Roboto';
+            font-size: 2rem;
+        }
+        
+        .size {
+            font-family: 'Roboto';
+            font-size: 1.5rem;
+        }
+        
+        .search {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+        }
+        
+        .form {
+            display: inline-flex;
+            position: relative;
+        }
+        
+        .btn-primary {
+            margin-left: 1rem;
+            width: 10rem;
+        }
+        
+        .form-control {
+            width: 20rem;
+        }
+        
+        @media (max-width: 700px) {
+            .form {
+                justify-content: column;
+            }
+            .form-control {
+                width: 20rem;
+            }
+            #botaoBuscar {
+                margin: 1rem 1rem 0 0;
+            }
+            #botaoListar {
+                margin: 1rem 0 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-center bg-light">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">Fácil, Rápido e Simples</h3>
+            </div>
+        </header>
+        <main role="main" class="inner cover">
+            <h1 class="cover-heading">Acompanhe seu Deputado Federal em exercício</h1>
+            <p class="lead size">Escolha entre mostrar uma lista com todos os deputados ou pesquise-o pelo seu nome:</p>
+
+            <div class="serch">
+                <form class="form-group row form" action="{% url 'listaDosDeputados' %}" method="GET">
+                    <!-- {% csrf_token %} -->
+                    <!-- {{ form }} -->
+                    <input class="form-control mr-sm-2" name="search" type="text" placeholder="Insira o nome" style="width:25rem">
+                    <input id="botaoBuscar" class="shadow-sm btn btn-success" type="submit" value="Buscar" style="width:6rem; margin-left: 1rem;">
+                    <a href="{% url 'listaDosDeputados' %}" class="shadow btn btn-lg btn-primary" id="botaoListar">Listar todos</a>
+                </form>
+            </div>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>Todos os direitos reservados - Copyright © 2021.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
